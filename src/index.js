@@ -20,8 +20,14 @@ app.use (
         let date = moment().format('YYYY-MM-DD HH:MM:SS')
         let a = req.ip
         let b = req.path
-        console.log (date,",",a,",",b);
+        let logging = true;
+        if(logging == true){
+            console.log (date,",",a,",",b);
         next();
+        }else{
+            console.log (date,",",a,",",b);
+            res.send("Not a vailid")
+        }
   }
   );
 
