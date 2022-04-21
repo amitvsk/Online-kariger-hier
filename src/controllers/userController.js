@@ -53,12 +53,12 @@ const updateUser = async function (req, res) {
   }
   let userData = req.body;
   let updatedUser = await userModel.findOneAndUpdate({ _id: userId }, userData);
-  res.send({ status: updatedUser, data: updatedUser });
+  res.send({ status: user, data: updatedUser });
 };
 
 const deleteUser = async function (req, res) {
     let userId = req.params.userId;
-    let user = await userModel.findById(userId).update({isDeleted: false});
+    let user = await userModel.findById(userId).update({isDeleted: true});
     res.send({status:true,msg:user})
 }
 
