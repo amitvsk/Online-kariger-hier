@@ -58,8 +58,13 @@ const updateUser = async function (req, res) {
 
 const deleteUser = async function (req, res) {
     let userId = req.params.userId;
-    let user = await userModel.findById(userId).update({isDeleted: true});
-    res.send({status:true,msg:user})
+    let user = await userModel.findById(userId)
+    if(!user){
+      res.send("User is not Vailid")
+    }
+    let updatedUser = await userModel.findOneAndUpdate({ _id: userId },{isDeleted:true});
+
+    res.send({status:true,msg:updatedUser})
 }
 
 module.exports.deleteUser = deleteUser
