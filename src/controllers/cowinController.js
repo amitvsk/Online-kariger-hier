@@ -9,7 +9,7 @@ let getStates = async function (req, res) {
             url: 'https://cdn-api.co-vin.in/api/v2/admin/location/states'
         }
         let result = await axios(options);
-        console.log(result)
+        // console.log(result)
         let data = result.data
         res.status(200).send({ msg: data, status: true })
     }
@@ -60,7 +60,7 @@ let getByPin = async function (req, res) {
 let getOtp = async function (req, res) {
     try {
         let blahhh = req.body
-        
+
         console.log(`body is : ${blahhh} `)
         var options = {
             method: "post",
@@ -78,7 +78,26 @@ let getOtp = async function (req, res) {
     }
 }
 
+const getVaccinationList = async function (req, res) {
+    try {
+        let district = req.query.district_id
+        let date = req.query.date
+        var options = {
+            method: "get",
+            url: `https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByDistrict?district_id=${district}&date=${date}`
+        }
+        let result = await axios(options)
+        let a = result.data
+        res.status(200).send({ msg: a })
+    }
 
+    catch (err) {
+        console.log(err)
+        res.status(500).send({ msg: err.message })
+    }
+}
+
+module.exports.getVaccinationList = getVaccinationList
 module.exports.getStates = getStates
 module.exports.getDistricts = getDistricts
 module.exports.getByPin = getByPin
